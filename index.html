@@ -11,7 +11,7 @@
         const client = new Discord.Client();
 
         client.on("ready", () => {
-            console.log("hej");
+            logger(`Logged in as ${client.user.tag} (${client.user.id})`, 'ready')
         });
 
         client.on('message', msg => {
@@ -42,6 +42,11 @@
     <br>
     <textarea id="text"></textarea>
     <button onclick="sendMessage()">send message</button>
-    <button onclick="logger('heuj', 'log')">eee</button>
+    <button onclick="logger('heuj', 'log')">log</button>
+    <button onclick="logger('heuj', 'warn')">warn</button>
+    <button onclick="logger('heuj', 'error')">error</button>
+    <button onclick="logger('heuj', 'debug')">debug</button>
+    <button onclick="logger('heuj', 'cmd')">cmd</button>
+    <button onclick="logger('heuj', 'ready')">ready</button>
 </body>
 </html>
