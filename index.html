@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bot Panel</title>
-    <script type="text/javascript" src="discord.11.6.1.min.js"></script>
+    <script type="text/javascript" src="lib/discord.11.6.1.min.js"></script>
+    <script type="text/javascript" src="lib/logger.js"></script>
     <script type="text/javascript">
         const token = "";
         const client = new Discord.Client();
@@ -41,5 +42,6 @@
     <br>
     <textarea id="text"></textarea>
     <button onclick="sendMessage()">send message</button>
+    <button onclick="logger('heuj', 'log')">eee</button>
 </body>
 </html>
