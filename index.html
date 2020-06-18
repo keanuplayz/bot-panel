@@ -26,10 +26,20 @@
         function stopBot() {
             client.destroy()
         }
+
+        function sendMessage() {
+            const msg = document.getElementById("text");
+            const msgChannel = client.channels.get("659486689894334504");
+            msgChannel.send(msg.value);
+        }
     </script>
 </head>
 <body>
     <button onclick="startBot()">start bot</button>
     <button onclick="stopBot()">stop bot</button>
+    <br>
+    <br>
+    <textarea id="text"></textarea>
+    <button onclick="sendMessage()">send message</button>
 </body>
 </html>
