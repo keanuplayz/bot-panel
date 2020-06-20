@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="lib/discord.11.6.1.min.js"></script>
     <script type="text/javascript" src="lib/logger.js"></script>
+    <script type="text/javascript" src="lib/functions.js"></script>
     <script type="text/javascript">
         const client = new Discord.Client();
 
@@ -22,7 +23,7 @@
 
         function startBot() {
             client
-                .login(localStorage.token || window.token || prompt("Token", "abcdef123456"))
+                .login(localStorage.token || window.token || prompt("Token"))
                 .then(token => (localStorage.token = token), console.log)
                 .then(() => { document.getElementById("offbutton").style.opacity = 1; });
         }
@@ -39,7 +40,9 @@
 
         function sendMessage() {
             const msg = document.getElementById("text");
-            const msgChannel = client.channels.get("659486689894334504");
+            const channelPrompt = prompt("Channel for message to be sent to")
+            window.localStorage.setItem('messageChannel', channelPrompt)
+            const msgChannel = client.channels.get(localStorage.messageChannel || window.messageChannel)
             msgChannel.send(msg.value);
         }
     </script>
@@ -53,6 +56,11 @@
     <h1>Debug Message Sending</h1>
     <textarea id="text"></textarea>
     <button onclick="sendMessage()">send message</button>
+    <br>
+    <br>
+    <h1>Reset Values</h1>
+    <button onclick="remove('token')">Bot Token</button>
+    <button onclick="remove('channel')">Message Channel</button>
     <br>
     <br>
     <h1>Logger Testing</h1>
