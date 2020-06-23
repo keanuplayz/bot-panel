@@ -1,15 +1,33 @@
 @font-face {
-    font-family: 'product-sans';
-    src: url('lib/fonts/Product\ Sans\ Regular.ttf')  format('truetype')
+  font-family: 'product-sans';
+  src: url('lib/fonts/Product\ Sans\ Regular.ttf') format('truetype');
 }
 
-
 body {
-    background-color: cornflowerblue;
-    font-family: product-sans;
-    text-align: center;
+  background-color: cornflowerblue;
+  font-family: product-sans;
+  text-align: center;
+}
+
+button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 #offbutton {
-    opacity: 0;
+  opacity: 0;
 }
+
+#themeSwitcher {
+  margin: auto;
+  position: fixed;
+  top: 0;
+  right: 50px;
+}
+
