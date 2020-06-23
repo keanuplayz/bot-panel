@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bot Panel</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
     <script type="text/javascript" src="lib/discord.11.6.1.min.js"></script>
     <script type="text/javascript" src="lib/logger.js"></script>
     <script type="text/javascript" src="lib/functions.js"></script>
     <script type="text/javascript">
-        const client = new Discord.Client();
+      const client = new Discord.Client();
 
-        client.on("ready", () => {
-            logger(`Logged in as ${client.user.tag} (${client.user.id})`, 'ready')
-        });
+      client.on('ready', () => {
+        logger(`Logged in as ${client.user.tag} (${client.user.id})`, 'ready');
+      });
 
-        client.on('message', msg => {
-            const guildTag = msg.channel.type === 'text' ? `[${msg.guild.name}]` : '[DM]';
-            const channelTag = msg.channel.type === 'text' ? `[#${msg.channel.name}]` : '';
-            console.log(`${guildTag}${channelTag} ${msg.author.tag}: ${msg.content}`);
-        });
+      client.on('message', (msg) => {
+        const guildTag =
+          msg.channel.type === 'text' ? `[${msg.guild.name}]` : '[DM]';
+        const channelTag =
+          msg.channel.type === 'text' ? `[#${msg.channel.name}]` : '';
+        console.log(
+          `${guildTag}${channelTag} ${msg.author.tag}: ${msg.content}`,
+        );
+      });
 
-        function startBot() {
-            client
-                .login(localStorage.token || window.token || prompt("Token"))
-                .then(token => (localStorage.token = token), console.log)
-                .then(() => { document.getElementById("offbutton").style.opacity = 1; });
+      function startBot() {
+        client
+          .login(localStorage.token || window.token || prompt('Token'))
+          .then((token) => (localStorage.token = token), console.log)
+          .then(() => {
+            document.getElementById('offbutton').style.opacity = 1;
+          });
+      }
+
+      function stopBot() {
+        if ((on = true)) {
+          client
+            .destroy()
+            .then(() => logger(`Successfully stopped the bot.`, 'disconnect'))
+            .then(() => {
+              document.getElementById('offbutton').style.opacity = 0;
+            });
+        } else {
+          logger('There is no client.', 'error');
         }
+      }
 
-        function stopBot() {
-            if (on = true) {
-                client.destroy()
-                .then(() => logger(`Successfully stopped the bot.`, 'disconnect'))
-                .then(() => { document.getElementById("offbutton").style.opacity = 0;});
-            } else {
-                logger("There is no client.", 'error');
-            }
-        }
-
-        function sendMessage() {
-            const msg = document.getElementById("text");
-            const channelPrompt = prompt("Channel for message to be sent to")
-            window.localStorage.setItem('messageChannel', channelPrompt)
-            const msgChannel = client.channels.get(localStorage.messageChannel || window.messageChannel)
-            msgChannel.send(msg.value);
-        }
+      function sendMessage() {
+        const msg = document.getElementById('text');
+        const channelPrompt = prompt('Channel for message to be sent to');
+        window.localStorage.setItem('messageChannel', channelPrompt);
+        const msgChannel = client.channels.get(
+          localStorage.messageChannel || window.messageChannel,
+        );
+        msgChannel.send(msg.value);
+      }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Bot Controls</h1>
     <button id="onbutton" onclick="startBot()">start bot</button>
     <button id="offbutton" onclick="stopBot()">stop bot</button>
-    <br>
-    <br>
+    <br />
+    <br />
     <h1>Debug Message Sending</h1>
     <textarea id="text"></textarea>
     <button onclick="sendMessage()">send message</button>
-    <br>
-    <br>
+    <br />
+    <br />
+    <div id="themeSwitcher">
+      <h1>Theme</h1>
+      <button onclick="darkTheme()">dark</button>
+      <button onclick="lightTheme()">light</button>
+    </div>
+    <br />
+    <br />
     <h1>Reset Values</h1>
     <button onclick="remove('token')">Bot Token</button>
     <button onclick="remove('channel')">Message Channel</button>
-    <br>
-    <br>
+    <br />
+    <br />
     <h1>Logger Testing</h1>
     <button onclick="logger('heuj', 'log')">log</button>
     <button onclick="logger('heuj', 'warn')">warn</button>
@@ -70,5 +88,5 @@
     <button onclick="logger('heuj', 'debug')">debug</button>
     <button onclick="logger('heuj', 'cmd')">cmd</button>
     <button onclick="logger('heuj', 'ready')">ready</button>
-</body>
+  </body>
 </html>
